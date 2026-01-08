@@ -12,6 +12,7 @@ import {
   Clock,
   Briefcase,
   Menu,
+  Bell,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,7 @@ const navItems = [
   { title: "Employees", icon: Users, path: "/employees" },
   { title: "Attendance", icon: Clock, path: "/attendance" },
   { title: "Leave Management", icon: Calendar, path: "/leave" },
+  { title: "Notifications", icon: Bell, path: "/notifications" },
   { title: "Recruitment", icon: Briefcase, path: "/recruitment" },
   { title: "Documents", icon: FileText, path: "/documents" },
   { title: "Department", icon: Building2, path: "/department" },
