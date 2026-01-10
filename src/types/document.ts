@@ -1,3 +1,12 @@
+export interface DocumentVersion {
+  id: string;
+  version: string;
+  size: string;
+  uploadedBy: string;
+  uploadedAt: string;
+  changeNotes?: string;
+}
+
 export interface Document {
   id: string;
   name: string;
@@ -9,6 +18,8 @@ export interface Document {
   lastModified: string;
   departments: string[];
   description?: string;
+  currentVersion: string;
+  versions: DocumentVersion[];
 }
 
 export type DocumentType = Document['type'];

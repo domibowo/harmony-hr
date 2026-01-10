@@ -8,6 +8,8 @@ import { DocumentTable } from "@/components/documents/DocumentTable";
 import { UploadDocumentDialog } from "@/components/documents/UploadDocumentDialog";
 import { SendEmailDialog } from "@/components/documents/SendEmailDialog";
 import { DocumentViewDialog } from "@/components/documents/DocumentViewDialog";
+import { VersionHistoryDialog } from "@/components/documents/VersionHistoryDialog";
+import { UploadVersionDialog } from "@/components/documents/UploadVersionDialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -45,6 +47,8 @@ export default function Documents() {
   const [sendEmailDialogOpen, setSendEmailDialogOpen] = useState(false);
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [versionHistoryOpen, setVersionHistoryOpen] = useState(false);
+  const [uploadVersionOpen, setUploadVersionOpen] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
 
   // Filter documents
@@ -83,17 +87,23 @@ export default function Documents() {
     departments: string[];
     file: File | null;
   }) => {
+    const today = new Date().toISOString().split("T")[0];
+    const size = data.file ? `${(data.file.size / 1024).toFixed(1)} KB` : "0 KB";
     const newDocument: Document = {
       id: Date.now().toString(),
       name: data.name,
       type: data.type as Document["type"],
       category: data.category,
-      size: data.file ? `${(data.file.size / 1024).toFixed(1)} KB` : "0 KB",
+      size,
       uploadedBy: "Current User",
-      uploadedAt: new Date().toISOString().split("T")[0],
-      lastModified: new Date().toISOString().split("T")[0],
+      uploadedAt: today,
+      lastModified: today,
       departments: data.departments,
       description: data.description,
+      currentVersion: "1.0",
+      versions: [
+        { id: `${Date.now()}-v1`, version: "1.0", size, uploadedBy: "Current User", uploadedAt: today, changeNotes: "Initial upload" },
+      ],
     };
     setDocuments((prev) => [newDocument, ...prev]);
     toast({
@@ -140,6 +150,43 @@ export default function Documents() {
     toast({
       title: "Email Sent",
       description: `"${data.document.name}" has been sent to ${recipients}.`,
+    });
+  };
+
+  const handleVersionHistory = (document: Document) => {
+    setSelectedDocument(document);
+    setVersionHistoryOpen(true);
+  };
+
+  const handleUploadNewVersion = (document: Document) => {
+    setSelectedDocument(document);
+    setUploadVersionOpen(true);
+  };
+
+  const handleUploadVersion = (documentId: string, data: { file: File | null; changeNotes: string }) => {
+    setDocuments((prev) =>
+      prev.map((doc) => {
+        if (doc.id !== documentId) return doc;
+        const currentParts = doc.currentVersion.split(".");
+        const nextMinor = parseInt(currentParts[1] || "0") + 1;
+        const newVersion = `${currentParts[0]}.${nextMinor}`;
+        const today = new Date().toISOString().split("T")[0];
+        const size = data.file ? `${(data.file.size / 1024).toFixed(1)} KB` : doc.size;
+        return {
+          ...doc,
+          currentVersion: newVersion,
+          size,
+          lastModified: today,
+          versions: [
+            { id: `${doc.id}-v${Date.now()}`, version: newVersion, size, uploadedBy: "Current User", uploadedAt: today, changeNotes: data.changeNotes || undefined },
+            ...doc.versions,
+          ],
+        };
+      })
+    );
+    toast({
+      title: "Version Uploaded",
+      description: "New document version has been uploaded successfully.",
     });
   };
 
@@ -225,6 +272,7 @@ export default function Documents() {
           onView={handleView}
           onDelete={handleDelete}
           onSendEmail={handleSendEmail}
+          onVersionHistory={handleVersionHistory}
         />
 
         {/* Pagination */}
@@ -277,6 +325,20 @@ export default function Documents() {
         open={viewDialogOpen}
         onOpenChange={setViewDialogOpen}
         document={selectedDocument}
+      />
+
+      <VersionHistoryDialog
+        open={versionHistoryOpen}
+        onOpenChange={setVersionHistoryOpen}
+        document={selectedDocument}
+        onUploadNewVersion={handleUploadNewVersion}
+      />
+
+      <UploadVersionDialog
+        open={uploadVersionOpen}
+        onOpenChange={setUploadVersionOpen}
+        document={selectedDocument}
+        onUpload={handleUploadVersion}
       />
 
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
