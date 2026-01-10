@@ -6,6 +6,7 @@ import {
   Mail,
   MoreHorizontal,
   Eye,
+  History,
 } from "lucide-react";
 import {
   Table,
@@ -31,6 +32,7 @@ interface DocumentTableProps {
   onView: (document: Document) => void;
   onDelete: (document: Document) => void;
   onSendEmail: (document: Document) => void;
+  onVersionHistory: (document: Document) => void;
 }
 
 const typeColors: Record<string, string> = {
@@ -47,6 +49,7 @@ export function DocumentTable({
   onView,
   onDelete,
   onSendEmail,
+  onVersionHistory,
 }: DocumentTableProps) {
   return (
     <div className="rounded-lg border bg-card">
@@ -56,7 +59,7 @@ export function DocumentTable({
             <TableHead>Document</TableHead>
             <TableHead>Type</TableHead>
             <TableHead className="hidden md:table-cell">Category</TableHead>
-            <TableHead className="hidden lg:table-cell">Size</TableHead>
+            <TableHead className="hidden lg:table-cell">Version</TableHead>
             <TableHead className="hidden lg:table-cell">Uploaded By</TableHead>
             <TableHead className="hidden md:table-cell">Last Modified</TableHead>
             <TableHead className="text-right">Actions</TableHead>
@@ -96,7 +99,13 @@ export function DocumentTable({
                   {document.category}
                 </TableCell>
                 <TableCell className="hidden lg:table-cell">
-                  {document.size}
+                  <button
+                    onClick={() => onVersionHistory(document)}
+                    className="inline-flex items-center gap-1 text-sm hover:text-primary transition-colors"
+                  >
+                    <History className="h-3 w-3" />
+                    v{document.currentVersion}
+                  </button>
                 </TableCell>
                 <TableCell className="hidden lg:table-cell">
                   {document.uploadedBy}
@@ -115,6 +124,10 @@ export function DocumentTable({
                       <DropdownMenuItem onClick={() => onView(document)}>
                         <Eye className="mr-2 h-4 w-4" />
                         View Details
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => onVersionHistory(document)}>
+                        <History className="mr-2 h-4 w-4" />
+                        Version History
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Download className="mr-2 h-4 w-4" />

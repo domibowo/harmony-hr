@@ -58,6 +58,13 @@ export function DocumentViewDialog({
               </div>
             </div>
             <div className="flex items-start gap-2">
+              <FileText className="h-4 w-4 text-muted-foreground mt-0.5" />
+              <div>
+                <p className="text-xs text-muted-foreground">Version</p>
+                <p className="text-sm font-medium">v{document.currentVersion}</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
               <HardDrive className="h-4 w-4 text-muted-foreground mt-0.5" />
               <div>
                 <p className="text-xs text-muted-foreground">Size</p>

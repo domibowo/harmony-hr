@@ -12,6 +12,11 @@ export const mockDocuments: Document[] = [
     lastModified: "2024-01-15",
     departments: ["All"],
     description: "Complete employee handbook with all company policies and procedures.",
+    currentVersion: "2.0",
+    versions: [
+      { id: "1-v2", version: "2.0", size: "2.4 MB", uploadedBy: "Sarah Johnson", uploadedAt: "2024-01-15", changeNotes: "Updated policies for 2024" },
+      { id: "1-v1", version: "1.0", size: "2.1 MB", uploadedBy: "Sarah Johnson", uploadedAt: "2023-01-10", changeNotes: "Initial release" },
+    ],
   },
   {
     id: "2",
@@ -24,6 +29,11 @@ export const mockDocuments: Document[] = [
     lastModified: "2024-02-10",
     departments: ["All"],
     description: "Standard leave request form for all employees.",
+    currentVersion: "1.1",
+    versions: [
+      { id: "2-v2", version: "1.1", size: "156 KB", uploadedBy: "Michael Chen", uploadedAt: "2024-02-10", changeNotes: "Added new leave types" },
+      { id: "2-v1", version: "1.0", size: "140 KB", uploadedBy: "Michael Chen", uploadedAt: "2024-02-01", changeNotes: "Initial version" },
+    ],
   },
   {
     id: "3",
@@ -36,6 +46,12 @@ export const mockDocuments: Document[] = [
     lastModified: "2024-03-05",
     departments: ["Engineering", "IT"],
     description: "Information security guidelines and best practices.",
+    currentVersion: "3.2",
+    versions: [
+      { id: "3-v3", version: "3.2", size: "890 KB", uploadedBy: "David Kim", uploadedAt: "2024-03-05", changeNotes: "Added remote access security" },
+      { id: "3-v2", version: "3.1", size: "820 KB", uploadedBy: "David Kim", uploadedAt: "2024-02-15", changeNotes: "Updated password policies" },
+      { id: "3-v1", version: "3.0", size: "780 KB", uploadedBy: "David Kim", uploadedAt: "2024-01-20", changeNotes: "Major revision for 2024" },
+    ],
   },
   {
     id: "4",
@@ -48,6 +64,10 @@ export const mockDocuments: Document[] = [
     lastModified: "2024-03-15",
     departments: ["All"],
     description: "Quarterly update on company performance and initiatives.",
+    currentVersion: "1.0",
+    versions: [
+      { id: "4-v1", version: "1.0", size: "1.2 MB", uploadedBy: "Emily Davis", uploadedAt: "2024-03-15", changeNotes: "Q1 2024 update" },
+    ],
   },
   {
     id: "5",
@@ -60,6 +80,10 @@ export const mockDocuments: Document[] = [
     lastModified: "2024-02-20",
     departments: ["HR"],
     description: "New employee onboarding checklist and requirements.",
+    currentVersion: "1.0",
+    versions: [
+      { id: "5-v1", version: "1.0", size: "245 KB", uploadedBy: "Sarah Johnson", uploadedAt: "2024-02-20", changeNotes: "Initial checklist" },
+    ],
   },
   {
     id: "6",
@@ -72,6 +96,12 @@ export const mockDocuments: Document[] = [
     lastModified: "2024-03-10",
     departments: ["Sales", "Marketing"],
     description: "Comprehensive sales training materials and presentations.",
+    currentVersion: "2.1",
+    versions: [
+      { id: "6-v3", version: "2.1", size: "5.8 MB", uploadedBy: "Robert Wilson", uploadedAt: "2024-03-10", changeNotes: "Added new sales techniques" },
+      { id: "6-v2", version: "2.0", size: "5.2 MB", uploadedBy: "Robert Wilson", uploadedAt: "2024-03-05", changeNotes: "Updated for Q1 targets" },
+      { id: "6-v1", version: "1.0", size: "4.5 MB", uploadedBy: "Robert Wilson", uploadedAt: "2024-03-01", changeNotes: "Initial training module" },
+    ],
   },
   {
     id: "7",
@@ -84,6 +114,10 @@ export const mockDocuments: Document[] = [
     lastModified: "2024-01-10",
     departments: ["All"],
     description: "Template for submitting expense reports.",
+    currentVersion: "1.0",
+    versions: [
+      { id: "7-v1", version: "1.0", size: "78 KB", uploadedBy: "Jennifer Lee", uploadedAt: "2024-01-10", changeNotes: "Initial template" },
+    ],
   },
   {
     id: "8",
@@ -96,6 +130,12 @@ export const mockDocuments: Document[] = [
     lastModified: "2024-03-01",
     departments: ["All"],
     description: "Guidelines for remote and hybrid work arrangements.",
+    currentVersion: "1.2",
+    versions: [
+      { id: "8-v3", version: "1.2", size: "320 KB", uploadedBy: "Sarah Johnson", uploadedAt: "2024-03-01", changeNotes: "Added hybrid work guidelines" },
+      { id: "8-v2", version: "1.1", size: "290 KB", uploadedBy: "Sarah Johnson", uploadedAt: "2024-02-20", changeNotes: "Updated equipment policy" },
+      { id: "8-v1", version: "1.0", size: "250 KB", uploadedBy: "Sarah Johnson", uploadedAt: "2024-02-15", changeNotes: "Initial remote work policy" },
+    ],
   },
 ];
 
