@@ -8,8 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { User, Lock, LogOut, Camera, Mail, Phone, Building, MapPin } from "lucide-react";
+import { User, Lock, LogOut, Camera, Mail, Phone, Building, MapPin, Bell } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -41,6 +42,19 @@ export default function Settings() {
     current: "",
     new: "",
     confirm: ""
+  });
+
+  const [notifications, setNotifications] = useState({
+    emailLeaveRequests: true,
+    emailAttendanceAlerts: true,
+    emailDocumentUpdates: false,
+    emailWeeklyDigest: true,
+    emailAnnouncements: true,
+    pushLeaveRequests: true,
+    pushAttendanceAlerts: false,
+    pushDocumentUpdates: true,
+    pushReminders: true,
+    pushAnnouncements: true,
   });
 
   const handleProfileUpdate = (e: React.FormEvent) => {
@@ -88,6 +102,14 @@ export default function Settings() {
     window.location.href = "/";
   };
 
+  const handleNotificationChange = (key: keyof typeof notifications, value: boolean) => {
+    setNotifications(prev => ({ ...prev, [key]: value }));
+    toast({
+      title: "Preference updated",
+      description: "Your notification preference has been saved.",
+    });
+  };
+
   return (
     <DashboardLayout>
       <div className="space-y-6">
@@ -104,6 +126,10 @@ export default function Settings() {
             <TabsTrigger value="profile" className="gap-2">
               <User className="h-4 w-4" />
               Profile
+            </TabsTrigger>
+            <TabsTrigger value="notifications" className="gap-2">
+              <Bell className="h-4 w-4" />
+              Notifications
             </TabsTrigger>
             <TabsTrigger value="security" className="gap-2">
               <Lock className="h-4 w-4" />
@@ -249,6 +275,177 @@ export default function Settings() {
                     <Button type="submit">Save Changes</Button>
                   </div>
                 </form>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Notifications Tab */}
+          <TabsContent value="notifications" className="space-y-6">
+            {/* Email Notifications */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Mail className="h-5 w-5" />
+                  Email Notifications
+                </CardTitle>
+                <CardDescription>
+                  Choose which email notifications you'd like to receive
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="emailLeaveRequests">Leave Requests</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Receive emails about leave request submissions and approvals
+                    </p>
+                  </div>
+                  <Switch
+                    id="emailLeaveRequests"
+                    checked={notifications.emailLeaveRequests}
+                    onCheckedChange={(value) => handleNotificationChange("emailLeaveRequests", value)}
+                  />
+                </div>
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="emailAttendanceAlerts">Attendance Alerts</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Get notified about attendance irregularities and late arrivals
+                    </p>
+                  </div>
+                  <Switch
+                    id="emailAttendanceAlerts"
+                    checked={notifications.emailAttendanceAlerts}
+                    onCheckedChange={(value) => handleNotificationChange("emailAttendanceAlerts", value)}
+                  />
+                </div>
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="emailDocumentUpdates">Document Updates</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Receive notifications when documents are uploaded or updated
+                    </p>
+                  </div>
+                  <Switch
+                    id="emailDocumentUpdates"
+                    checked={notifications.emailDocumentUpdates}
+                    onCheckedChange={(value) => handleNotificationChange("emailDocumentUpdates", value)}
+                  />
+                </div>
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="emailWeeklyDigest">Weekly Digest</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Get a weekly summary of HR activities and updates
+                    </p>
+                  </div>
+                  <Switch
+                    id="emailWeeklyDigest"
+                    checked={notifications.emailWeeklyDigest}
+                    onCheckedChange={(value) => handleNotificationChange("emailWeeklyDigest", value)}
+                  />
+                </div>
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="emailAnnouncements">Company Announcements</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Receive important company-wide announcements
+                    </p>
+                  </div>
+                  <Switch
+                    id="emailAnnouncements"
+                    checked={notifications.emailAnnouncements}
+                    onCheckedChange={(value) => handleNotificationChange("emailAnnouncements", value)}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Push Notifications */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Bell className="h-5 w-5" />
+                  Push Notifications
+                </CardTitle>
+                <CardDescription>
+                  Control in-app and browser push notifications
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="pushLeaveRequests">Leave Requests</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Instant notifications for leave request updates
+                    </p>
+                  </div>
+                  <Switch
+                    id="pushLeaveRequests"
+                    checked={notifications.pushLeaveRequests}
+                    onCheckedChange={(value) => handleNotificationChange("pushLeaveRequests", value)}
+                  />
+                </div>
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="pushAttendanceAlerts">Attendance Alerts</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Real-time alerts for attendance issues
+                    </p>
+                  </div>
+                  <Switch
+                    id="pushAttendanceAlerts"
+                    checked={notifications.pushAttendanceAlerts}
+                    onCheckedChange={(value) => handleNotificationChange("pushAttendanceAlerts", value)}
+                  />
+                </div>
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="pushDocumentUpdates">Document Updates</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Get notified when new documents are shared with you
+                    </p>
+                  </div>
+                  <Switch
+                    id="pushDocumentUpdates"
+                    checked={notifications.pushDocumentUpdates}
+                    onCheckedChange={(value) => handleNotificationChange("pushDocumentUpdates", value)}
+                  />
+                </div>
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="pushReminders">Task Reminders</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Receive reminders for pending tasks and deadlines
+                    </p>
+                  </div>
+                  <Switch
+                    id="pushReminders"
+                    checked={notifications.pushReminders}
+                    onCheckedChange={(value) => handleNotificationChange("pushReminders", value)}
+                  />
+                </div>
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="pushAnnouncements">Announcements</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Important company announcements and updates
+                    </p>
+                  </div>
+                  <Switch
+                    id="pushAnnouncements"
+                    checked={notifications.pushAnnouncements}
+                    onCheckedChange={(value) => handleNotificationChange("pushAnnouncements", value)}
+                  />
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
