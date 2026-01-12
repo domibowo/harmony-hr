@@ -128,61 +128,61 @@ const Employees = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Users className="w-5 h-5 text-primary" />
+            <CardContent className="p-3 sm:p-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 rounded-lg bg-primary/10 shrink-0">
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </div>
-                <div>
-                  <p className="text-2xl font-bold">{employees.length}</p>
-                  <p className="text-sm text-muted-foreground">Total</p>
+                <div className="min-w-0">
+                  <p className="text-xl sm:text-2xl font-bold">{employees.length}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground truncate">Total</p>
                 </div>
               </div>
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-success/10">
-                  <Users className="w-5 h-5 text-success" />
+            <CardContent className="p-3 sm:p-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 rounded-lg bg-success/10 shrink-0">
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-success" />
                 </div>
-                <div>
-                  <p className="text-2xl font-bold">
+                <div className="min-w-0">
+                  <p className="text-xl sm:text-2xl font-bold">
                     {employees.filter((e) => e.status === 'Active').length}
                   </p>
-                  <p className="text-sm text-muted-foreground">Active</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground truncate">Active</p>
                 </div>
               </div>
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-warning/10">
-                  <Users className="w-5 h-5 text-warning" />
+            <CardContent className="p-3 sm:p-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 rounded-lg bg-warning/10 shrink-0">
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-warning" />
                 </div>
-                <div>
-                  <p className="text-2xl font-bold">
+                <div className="min-w-0">
+                  <p className="text-xl sm:text-2xl font-bold">
                     {employees.filter((e) => e.status === 'On Leave').length}
                   </p>
-                  <p className="text-sm text-muted-foreground">On Leave</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground truncate">On Leave</p>
                 </div>
               </div>
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-muted">
-                  <Users className="w-5 h-5 text-muted-foreground" />
+            <CardContent className="p-3 sm:p-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 rounded-lg bg-muted shrink-0">
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                 </div>
-                <div>
-                  <p className="text-2xl font-bold">
+                <div className="min-w-0">
+                  <p className="text-xl sm:text-2xl font-bold">
                     {new Set(employees.map((e) => e.department)).size}
                   </p>
-                  <p className="text-sm text-muted-foreground">Departments</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground truncate">Departments</p>
                 </div>
               </div>
             </CardContent>
@@ -191,10 +191,10 @@ const Employees = () => {
 
         {/* Filters & Table */}
         <Card variant="elevated">
-          <CardHeader>
+          <CardHeader className="pb-4">
             <CardTitle className="text-lg">Employee Directory</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 px-3 sm:px-6">
             <EmployeeFilters
               searchQuery={searchQuery}
               onSearchChange={setSearchQuery}

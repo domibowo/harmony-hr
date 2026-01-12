@@ -45,10 +45,10 @@ export function EmployeeFilters({
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
         <Select value={departmentFilter} onValueChange={onDepartmentChange}>
-          <SelectTrigger className="w-[160px]">
-            <Filter className="w-4 h-4 mr-2" />
+          <SelectTrigger className="w-full sm:w-[160px]">
+            <Filter className="w-4 h-4 mr-2 shrink-0" />
             <SelectValue placeholder="Department" />
           </SelectTrigger>
           <SelectContent>
@@ -62,7 +62,7 @@ export function EmployeeFilters({
         </Select>
 
         <Select value={statusFilter} onValueChange={onStatusChange}>
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger className="w-full sm:w-[140px]">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
@@ -74,7 +74,7 @@ export function EmployeeFilters({
         </Select>
 
         {hasActiveFilters && (
-          <Button variant="ghost" size="icon" onClick={onClearFilters}>
+          <Button variant="ghost" size="icon" onClick={onClearFilters} className="shrink-0">
             <X className="w-4 h-4" />
           </Button>
         )}

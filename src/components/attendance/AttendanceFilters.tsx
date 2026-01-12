@@ -66,9 +66,9 @@ export function AttendanceFilters({
     selectedDepartment !== "All Departments";
 
   return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:flex-wrap">
+    <div className="flex flex-col gap-3 sm:gap-4">
       {/* Search */}
-      <div className="relative flex-1 min-w-[200px]">
+      <div className="relative flex-1">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           placeholder="Search employees..."
@@ -78,65 +78,68 @@ export function AttendanceFilters({
         />
       </div>
 
-      {/* Date Picker */}
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            className={cn(
-              "w-full sm:w-[180px] justify-start text-left font-normal",
-              !selectedDate && "text-muted-foreground"
-            )}
-          >
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            {selectedDate ? format(selectedDate, "PPP") : "Select date"}
+      {/* Filters Row */}
+      <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2 sm:items-center">
+        {/* Date Picker */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full sm:w-[150px] justify-start text-left font-normal text-sm",
+                !selectedDate && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4 shrink-0" />
+              <span className="truncate">{selectedDate ? format(selectedDate, "PP") : "Date"}</span>
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={selectedDate}
+              onSelect={onDateChange}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+
+        {/* Status Filter */}
+        <Select value={selectedStatus} onValueChange={onStatusChange}>
+          <SelectTrigger className="w-full sm:w-[130px]">
+            <SelectValue placeholder="Status" />
+          </SelectTrigger>
+          <SelectContent>
+            {statuses.map((status) => (
+              <SelectItem key={status.value} value={status.value}>
+                {status.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {/* Department Filter */}
+        <Select value={selectedDepartment} onValueChange={onDepartmentChange}>
+          <SelectTrigger className="w-full sm:w-[150px]">
+            <SelectValue placeholder="Department" />
+          </SelectTrigger>
+          <SelectContent>
+            {departments.map((dept) => (
+              <SelectItem key={dept} value={dept}>
+                {dept}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {/* Clear Filters */}
+        {hasActiveFilters && (
+          <Button variant="ghost" size="sm" onClick={onClearFilters} className="shrink-0 w-full sm:w-auto">
+            <X className="h-4 w-4 mr-1" />
+            Clear
           </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="single"
-            selected={selectedDate}
-            onSelect={onDateChange}
-            initialFocus
-          />
-        </PopoverContent>
-      </Popover>
-
-      {/* Status Filter */}
-      <Select value={selectedStatus} onValueChange={onStatusChange}>
-        <SelectTrigger className="w-full sm:w-[150px]">
-          <SelectValue placeholder="Status" />
-        </SelectTrigger>
-        <SelectContent>
-          {statuses.map((status) => (
-            <SelectItem key={status.value} value={status.value}>
-              {status.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      {/* Department Filter */}
-      <Select value={selectedDepartment} onValueChange={onDepartmentChange}>
-        <SelectTrigger className="w-full sm:w-[180px]">
-          <SelectValue placeholder="Department" />
-        </SelectTrigger>
-        <SelectContent>
-          {departments.map((dept) => (
-            <SelectItem key={dept} value={dept}>
-              {dept}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      {/* Clear Filters */}
-      {hasActiveFilters && (
-        <Button variant="ghost" size="sm" onClick={onClearFilters}>
-          <X className="h-4 w-4 mr-1" />
-          Clear
-        </Button>
-      )}
+        )}
+      </div>
     </div>
   );
 }

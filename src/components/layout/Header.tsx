@@ -14,15 +14,15 @@ import { NotificationsDropdown } from "./NotificationsDropdown";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-card/80 backdrop-blur-md px-4 lg:px-6">
+    <header className="sticky top-0 z-30 flex h-14 sm:h-16 items-center justify-between border-b border-border bg-card/80 backdrop-blur-md px-3 sm:px-4 lg:px-6">
       {/* Search */}
-      <div className="flex-1 max-w-md ml-12 lg:ml-0">
+      <div className="flex-1 max-w-md ml-10 sm:ml-12 lg:ml-0">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search employees, documents..."
-            className="pl-10 bg-secondary/50 border-0 focus-visible:ring-1"
+            placeholder="Search..."
+            className="pl-10 bg-secondary/50 border-0 focus-visible:ring-1 h-9 sm:h-10 text-sm"
           />
         </div>
       </div>

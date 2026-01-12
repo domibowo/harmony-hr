@@ -27,15 +27,15 @@ export function StatCard({
       className="animate-slide-up"
       style={{ animationDelay: `${delay}ms` }}
     >
-      <CardContent className="p-6">
-        <div className="flex items-start justify-between">
-          <div className="space-y-2">
-            <p className="text-sm font-medium text-muted-foreground">{title}</p>
-            <p className="text-3xl font-bold tracking-tight">{value}</p>
+      <CardContent className="p-4 sm:p-6">
+        <div className="flex items-start justify-between gap-2">
+          <div className="space-y-1 sm:space-y-2 min-w-0 flex-1">
+            <p className="text-xs sm:text-sm font-medium text-muted-foreground truncate">{title}</p>
+            <p className="text-2xl sm:text-3xl font-bold tracking-tight">{value}</p>
             {change && (
               <p
                 className={cn(
-                  "text-sm font-medium",
+                  "text-xs sm:text-sm font-medium truncate",
                   changeType === "positive" && "text-success",
                   changeType === "negative" && "text-destructive",
                   changeType === "neutral" && "text-muted-foreground"
@@ -45,8 +45,8 @@ export function StatCard({
               </p>
             )}
           </div>
-          <div className={cn("rounded-lg p-3", iconColor)}>
-            <Icon className="h-6 w-6" />
+          <div className={cn("rounded-lg p-2 sm:p-3 shrink-0", iconColor)}>
+            <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
         </div>
       </CardContent>
