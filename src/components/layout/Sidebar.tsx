@@ -25,7 +25,7 @@ const navItems = [
   { title: "Notifications", icon: Bell, path: "/notifications" },
   { title: "Recruitment", icon: Briefcase, path: "/recruitment" },
   { title: "Documents", icon: FileText, path: "/documents" },
-  { title: "Department", icon: Building2, path: "/department" },
+  { title: "Departments", icon: Building2, path: "/departments" },
 ];
 
 const bottomNavItems = [
