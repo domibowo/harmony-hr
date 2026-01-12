@@ -10,19 +10,19 @@ import { Users, UserCheck, CalendarOff, Briefcase } from "lucide-react";
 const Index = () => {
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Page Header */}
         <div className="animate-fade-in">
-          <h1 className="text-2xl font-bold tracking-tight lg:text-3xl">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight lg:text-3xl">
             Welcome back, John! 👋
           </h1>
-          <p className="text-muted-foreground mt-1">
+          <p className="text-muted-foreground mt-1 text-sm sm:text-base">
             Here's what's happening with your team today.
           </p>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
           <StatCard
             title="Total Employees"
             value="152"
@@ -62,15 +62,15 @@ const Index = () => {
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid gap-6 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 lg:grid-cols-3">
           {/* Left Column - Takes 2 cols on large screens */}
-          <div className="space-y-6 lg:col-span-2">
+          <div className="space-y-4 sm:space-y-6 lg:col-span-2">
             <AttendanceChart />
             <LeaveRequests />
           </div>
 
           {/* Right Column */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <QuickActions />
             <UpcomingEvents />
           </div>

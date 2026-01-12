@@ -100,13 +100,13 @@ const Leave = () => {
         {/* Main Content */}
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Left Column - Form and Calendar */}
-          <div className="space-y-6 lg:col-span-1">
+          <div className="space-y-6 lg:col-span-1 order-2 lg:order-1">
             <LeaveRequestForm onSubmit={handleSubmitRequest} />
             <LeaveCalendar requests={requests} />
           </div>
 
           {/* Right Column - Requests Table */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 order-1 lg:order-2">
             <Card className="animate-slide-up" style={{ animationDelay: "100ms" }}>
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-2 text-lg font-semibold">
@@ -114,13 +114,13 @@ const Leave = () => {
                   Leave Requests
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 px-3 sm:px-6">
                 <Tabs value={activeTab} onValueChange={setActiveTab}>
-                  <TabsList className="grid w-full grid-cols-4">
-                    <TabsTrigger value="all">All</TabsTrigger>
-                    <TabsTrigger value="pending">Pending</TabsTrigger>
-                    <TabsTrigger value="approved">Approved</TabsTrigger>
-                    <TabsTrigger value="rejected">Rejected</TabsTrigger>
+                  <TabsList className="grid w-full grid-cols-4 h-auto">
+                    <TabsTrigger value="all" className="text-xs sm:text-sm py-2">All</TabsTrigger>
+                    <TabsTrigger value="pending" className="text-xs sm:text-sm py-2">Pending</TabsTrigger>
+                    <TabsTrigger value="approved" className="text-xs sm:text-sm py-2">Approved</TabsTrigger>
+                    <TabsTrigger value="rejected" className="text-xs sm:text-sm py-2">Rejected</TabsTrigger>
                   </TabsList>
                   <TabsContent value={activeTab} className="mt-4">
                     <LeaveRequestsTable

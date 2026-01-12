@@ -76,12 +76,12 @@ const Attendance = () => {
         {/* Main Content */}
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Clock In/Out Card */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 order-2 lg:order-1">
             <ClockInOut />
           </div>
 
           {/* Attendance Records */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 order-1 lg:order-2">
             <Card className="animate-slide-up" style={{ animationDelay: "100ms" }}>
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-2 text-lg font-semibold">
@@ -89,7 +89,7 @@ const Attendance = () => {
                   Daily Attendance Records
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 px-3 sm:px-6">
                 <AttendanceFilters
                   searchQuery={searchQuery}
                   onSearchChange={setSearchQuery}
