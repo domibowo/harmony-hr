@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -16,6 +15,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
 const navItems = [
   { title: "Dashboard", icon: LayoutDashboard, path: "/" },
@@ -40,6 +41,7 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onToggle }: SidebarProps) {
   const location = useLocation();
+  const { profile, getInitials, getDisplayName } = useUserProfile();
 
   return (
     <>
@@ -113,6 +115,29 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
             );
           })}
         </nav>
+
+        {/* User Profile Section */}
+        <div className="border-t border-sidebar-border p-3">
+          <div className={cn(
+            "flex items-center gap-3 rounded-lg px-3 py-2.5 bg-sidebar-accent/50",
+            !isOpen && "justify-center px-0"
+          )}>
+            <Avatar className="h-9 w-9 shrink-0">
+              <AvatarImage src={profile?.avatar_url || undefined} />
+              <AvatarFallback className="bg-primary text-primary-foreground text-xs">
+                {getInitials()}
+              </AvatarFallback>
+            </Avatar>
+            {isOpen && (
+              <div className="flex flex-col overflow-hidden animate-fade-in">
+                <span className="text-sm font-medium truncate">{getDisplayName()}</span>
+                <span className="text-xs text-sidebar-foreground/60 truncate">
+                  {profile?.department || 'Team Member'}
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
 
         {/* Bottom navigation */}
         <div className="border-t border-sidebar-border p-3 space-y-1">
