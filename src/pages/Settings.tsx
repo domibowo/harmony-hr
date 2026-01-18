@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 import { User, Lock, LogOut, Camera, Mail, Phone, Building, MapPin, Bell } from "lucide-react";
 import {
   AlertDialog,
@@ -25,6 +27,8 @@ import {
 
 export default function Settings() {
   const { toast } = useToast();
+  const { signOut, user } = useAuth();
+  const navigate = useNavigate();
   
   const [profile, setProfile] = useState({
     firstName: "John",
@@ -93,13 +97,13 @@ export default function Settings() {
     setPasswords({ current: "", new: "", confirm: "" });
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await signOut();
     toast({
       title: "Logged out",
       description: "You have been successfully logged out.",
     });
-    // In a real app, this would redirect to login page
-    window.location.href = "/";
+    navigate('/auth');
   };
 
   const handleNotificationChange = (key: keyof typeof notifications, value: boolean) => {
