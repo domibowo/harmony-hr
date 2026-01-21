@@ -14,6 +14,157 @@ export type Database = {
   }
   public: {
     Tables: {
+      attendance_records: {
+        Row: {
+          clock_in: string | null
+          clock_out: string | null
+          created_at: string
+          date: string
+          employee_id: string
+          id: string
+          notes: string | null
+          status: Database["public"]["Enums"]["attendance_status"]
+          updated_at: string
+          work_hours: number | null
+        }
+        Insert: {
+          clock_in?: string | null
+          clock_out?: string | null
+          created_at?: string
+          date: string
+          employee_id: string
+          id?: string
+          notes?: string | null
+          status?: Database["public"]["Enums"]["attendance_status"]
+          updated_at?: string
+          work_hours?: number | null
+        }
+        Update: {
+          clock_in?: string | null
+          clock_out?: string | null
+          created_at?: string
+          date?: string
+          employee_id?: string
+          id?: string
+          notes?: string | null
+          status?: Database["public"]["Enums"]["attendance_status"]
+          updated_at?: string
+          work_hours?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_records_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      employees: {
+        Row: {
+          avatar: string | null
+          created_at: string
+          department: string
+          email: string
+          employee_id: string
+          first_name: string
+          id: string
+          last_name: string
+          phone: string | null
+          position: string
+          start_date: string
+          status: Database["public"]["Enums"]["employee_status"]
+          updated_at: string
+        }
+        Insert: {
+          avatar?: string | null
+          created_at?: string
+          department: string
+          email: string
+          employee_id: string
+          first_name: string
+          id?: string
+          last_name: string
+          phone?: string | null
+          position: string
+          start_date: string
+          status?: Database["public"]["Enums"]["employee_status"]
+          updated_at?: string
+        }
+        Update: {
+          avatar?: string | null
+          created_at?: string
+          department?: string
+          email?: string
+          employee_id?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          phone?: string | null
+          position?: string
+          start_date?: string
+          status?: Database["public"]["Enums"]["employee_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      leave_requests: {
+        Row: {
+          applied_on: string
+          created_at: string
+          employee_id: string
+          end_date: string
+          id: string
+          leave_type: Database["public"]["Enums"]["leave_type"]
+          reason: string
+          review_notes: string | null
+          reviewed_by: string | null
+          reviewed_on: string | null
+          start_date: string
+          status: Database["public"]["Enums"]["leave_status"]
+          updated_at: string
+        }
+        Insert: {
+          applied_on?: string
+          created_at?: string
+          employee_id: string
+          end_date: string
+          id?: string
+          leave_type: Database["public"]["Enums"]["leave_type"]
+          reason: string
+          review_notes?: string | null
+          reviewed_by?: string | null
+          reviewed_on?: string | null
+          start_date: string
+          status?: Database["public"]["Enums"]["leave_status"]
+          updated_at?: string
+        }
+        Update: {
+          applied_on?: string
+          created_at?: string
+          employee_id?: string
+          end_date?: string
+          id?: string
+          leave_type?: Database["public"]["Enums"]["leave_type"]
+          reason?: string
+          review_notes?: string | null
+          reviewed_by?: string | null
+          reviewed_on?: string | null
+          start_date?: string
+          status?: Database["public"]["Enums"]["leave_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leave_requests_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -58,7 +209,16 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      attendance_status: "present" | "absent" | "late" | "half-day" | "on-leave"
+      employee_status: "Active" | "On Leave" | "Terminated"
+      leave_status: "pending" | "approved" | "rejected"
+      leave_type:
+        | "annual"
+        | "sick"
+        | "personal"
+        | "maternity"
+        | "paternity"
+        | "unpaid"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -185,6 +345,18 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      attendance_status: ["present", "absent", "late", "half-day", "on-leave"],
+      employee_status: ["Active", "On Leave", "Terminated"],
+      leave_status: ["pending", "approved", "rejected"],
+      leave_type: [
+        "annual",
+        "sick",
+        "personal",
+        "maternity",
+        "paternity",
+        "unpaid",
+      ],
+    },
   },
 } as const
